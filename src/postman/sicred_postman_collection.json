@@ -1,0 +1,332 @@
+{
+	"info": {
+		"_postman_id": "78c3b520-f3ff-4210-940b-27153d481dc8",
+		"name": "Sicred",
+		"description": "API de apoio para uso dos endpoints do desafio SICRED",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12430323"
+	},
+	"item": [
+		{
+			"name": "API - CPF's",
+			"item": [
+				{
+					"name": "Validação de CPF",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://user-info.herokuapp.com/users/05241733701",
+							"protocol": "https",
+							"host": [
+								"user-info",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"users",
+								"05241733701"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validação de CPF (Terceiros)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "5ae973d7a997af13f0aaf2bf60e65803",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.cpfcnpj.com.br/5ae973d7a997af13f0aaf2bf60e65803/1/05241733701",
+							"protocol": "https",
+							"host": [
+								"api",
+								"cpfcnpj",
+								"com",
+								"br"
+							],
+							"path": [
+								"5ae973d7a997af13f0aaf2bf60e65803",
+								"1",
+								"05241733701"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Serviços",
+			"item": [
+				{
+					"name": "Usuário",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Name Of The User - {{cpf}}\",\r\n    \"email\": \"{{cpf}}@company.com\",\r\n    \"username\": \"{{username}}\",\r\n    \"cpf\": \"{{cpf}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/user/v1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"v1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if(pm.response.code === 200){    \r",
+									"    var jsonData = JSON.parse(responseBody);\r",
+									"    postman.setGlobalVariable(\"token\", jsonData.token);\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"{{username}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/login/v1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"login",
+								"v1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Tópico",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if(pm.response.code === 201){    \r",
+									"    var jsonData = JSON.parse(responseBody);\r",
+									"    postman.setGlobalVariable(\"topicId\", jsonData.id);\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{mockTopicName}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/topic/v2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"topic",
+								"v2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sessão",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if(pm.response.code === 201){    \r",
+									"    var jsonData = JSON.parse(responseBody);\r",
+									"    postman.setGlobalVariable(\"sessionId\", jsonData.id);\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"topic\": \"{{topicId}}\",\r\n    \"duration\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/session/v2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"session",
+								"v2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Voto",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"session\": {{sessionId}},\r\n    \"voteResult\": \"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/vote/v1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"vote",
+								"v1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Contagem por sessão (e total)",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/vote/v1/countBySession?session={{sessionId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"vote",
+								"v1",
+								"countBySession"
+							],
+							"query": [
+								{
+									"key": "session",
+									"value": "{{sessionId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Documentação de apoio - Desafio SICRED (Autor: Gabriel Marques)"
+		}
+	]
+}

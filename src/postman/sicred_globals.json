@@ -1,0 +1,51 @@
+{
+	"id": "37ced035-d8fb-48c8-8200-e1e4c8a3fd15",
+	"values": [
+		{
+			"key": "token",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "topicId",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "sessionId",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "mockTopicName",
+			"value": "mockTopic",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "username",
+			"value": "revista",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "cpf",
+			"value": "19204071036",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "password",
+			"value": "password",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"name": "Globals",
+	"_postman_variable_scope": "globals",
+	"_postman_exported_at": "2022-12-19T19:06:43.161Z",
+	"_postman_exported_using": "Postman/10.6.7"
+}
